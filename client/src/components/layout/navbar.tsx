@@ -48,6 +48,19 @@ export function Navbar() {
     window.location.href = "/login";
   };
 
+  const scrollToSection = (sectionId: string) => {
+    // If we're not on the landing page, navigate to it first
+    if (location.pathname !== '/') {
+      window.location.href = `/#${sectionId}`;
+      return;
+    }
+
+    const element = document.getElementById(sectionId);
+    if (element) {
+      element.scrollIntoView({ behavior: 'smooth' });
+    }
+  };
+
   return (
     <header className="fixed top-0 w-full z-50 bg-background/80 backdrop-blur-md border-b border-border">
       <nav className="container mx-auto px-4 h-16 flex items-center justify-between">
@@ -64,7 +77,7 @@ export function Navbar() {
             SourceHub
           </span>
         </div>
-        
+
         {/* Desktop Navigation */}
         <div className="hidden md:flex items-center space-x-8">
           <a 
@@ -75,42 +88,21 @@ export function Navbar() {
             Products
           </a>
           <button 
-            onClick={() => {
-              const requestSection = document.querySelector('[data-section="request"]');
-              if (requestSection) {
-                requestSection.scrollIntoView({ behavior: 'smooth' });
-              } else {
-                window.location.href = "/#request";
-              }
-            }}
+            onClick={() => scrollToSection('request')}
             className="text-muted-foreground hover:text-foreground transition-colors"
             data-testid="link-request"
           >
             Request
           </button>
           <button 
-            onClick={() => {
-              const howItWorksSection = document.querySelector('[data-section="how-it-works"]');
-              if (howItWorksSection) {
-                howItWorksSection.scrollIntoView({ behavior: 'smooth' });
-              } else {
-                window.location.href = "/#how-it-works";
-              }
-            }}
+            onClick={() => scrollToSection('how-it-works')}
             className="text-muted-foreground hover:text-foreground transition-colors"
             data-testid="link-how-it-works"
           >
             How it Works
           </button>
           <button 
-            onClick={() => {
-              const supportSection = document.querySelector('[data-section="support"]');
-              if (supportSection) {
-                supportSection.scrollIntoView({ behavior: 'smooth' });
-              } else {
-                window.location.href = "/#support";
-              }
-            }}
+            onClick={() => scrollToSection('support')}
             className="text-muted-foreground hover:text-foreground transition-colors"
             data-testid="link-support"
           >
@@ -248,12 +240,7 @@ export function Navbar() {
             </a>
             <button 
               onClick={() => {
-                const requestSection = document.querySelector('[data-section="request"]');
-                if (requestSection) {
-                  requestSection.scrollIntoView({ behavior: 'smooth' });
-                } else {
-                  window.location.href = "/#request";
-                }
+                scrollToSection('request');
                 setIsMobileMenuOpen(false);
               }}
               className="block w-full text-left px-3 py-2 text-muted-foreground hover:text-foreground transition-colors"
@@ -263,12 +250,7 @@ export function Navbar() {
             </button>
             <button 
               onClick={() => {
-                const howItWorksSection = document.querySelector('[data-section="how-it-works"]');
-                if (howItWorksSection) {
-                  howItWorksSection.scrollIntoView({ behavior: 'smooth' });
-                } else {
-                  window.location.href = "/#how-it-works";
-                }
+                scrollToSection('how-it-works');
                 setIsMobileMenuOpen(false);
               }}
               className="block w-full text-left px-3 py-2 text-muted-foreground hover:text-foreground transition-colors"
@@ -278,12 +260,7 @@ export function Navbar() {
             </button>
             <button 
               onClick={() => {
-                const supportSection = document.querySelector('[data-section="support"]');
-                if (supportSection) {
-                  supportSection.scrollIntoView({ behavior: 'smooth' });
-                } else {
-                  window.location.href = "/#support";
-                }
+                scrollToSection('support');
                 setIsMobileMenuOpen(false);
               }}
               className="block w-full text-left px-3 py-2 text-muted-foreground hover:text-foreground transition-colors"

@@ -84,7 +84,7 @@ export default function Landing() {
       name: "Desk Accessories Set",
       description: "Minimalist design for modern workspace",
       price: "$79.99",
-      imageUrl: "https://images.unsplash.com/photo-1586953208448-b95a79798f07?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&h=300",
+      imageUrl: "https://images.unsplash.com/photo-1586953208448-895a79518f07?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&h=300",
       category: "Home & Office",
       rating: 4
     }
@@ -122,7 +122,7 @@ export default function Landing() {
       <section className="pt-16 min-h-screen flex items-center relative overflow-hidden">
         <div className="absolute inset-0 bg-gradient-to-br from-background via-secondary to-muted"></div>
         <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,_var(--primary)/10,_transparent_50%)]"></div>
-        
+
         <div className="container mx-auto px-4 py-20 relative z-10">
           <div className="grid lg:grid-cols-2 gap-12 items-center">
             <div className="space-y-8 animate-on-scroll">
@@ -188,7 +188,7 @@ export default function Landing() {
                   className="rounded-2xl shadow-2xl w-full h-auto transform hover:scale-105 transition-transform duration-500"
                   data-testid="img-hero-workspace"
                 />
-                
+
                 {/* Floating feature cards */}
                 <Card className="absolute -top-4 -left-4 p-4 shadow-lg backdrop-blur-md bg-card/80 border-border/50">
                   <CardContent className="p-0">
@@ -296,7 +296,7 @@ export default function Landing() {
       </section>
 
       {/* Request Product Section */}
-      <section className="py-20 bg-gradient-to-br from-primary/5 to-accent/5" data-section="request">
+      <section id="request" className="py-20 bg-gradient-to-br from-primary/5 to-accent/5" data-section="request">
         <div className="container mx-auto px-4">
           <div className="grid lg:grid-cols-2 gap-12 items-center">
             <div className="space-y-8 animate-on-scroll">
@@ -410,7 +410,7 @@ export default function Landing() {
       </section>
 
       {/* How It Works */}
-      <section className="py-20" data-section="how-it-works">
+      <section id="how-it-works" className="py-20" data-section="how-it-works">
         <div className="container mx-auto px-4">
           <div className="text-center mb-16 animate-on-scroll">
             <h2 className="text-4xl font-bold mb-4" data-testid="text-how-it-works-title">How It Works</h2>
@@ -620,7 +620,7 @@ export default function Landing() {
       </section>
 
       {/* Support Section */}
-      <section className="py-20 bg-muted/50" data-section="support">
+      <section id="support" className="py-20 bg-muted/50" data-section="support">
         <div className="container mx-auto px-4">
           <div className="text-center mb-16 animate-on-scroll">
             <h2 className="text-4xl font-bold mb-4" data-testid="text-support-title">Need Help?</h2>

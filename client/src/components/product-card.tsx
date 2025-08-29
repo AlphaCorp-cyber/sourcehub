@@ -1,3 +1,4 @@
+
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
@@ -120,103 +121,6 @@ export function ProductCard({ product }: ProductCardProps) {
             ) : (
               <ShoppingCart className="w-4 h-4" />
             )}
-          </Button>
-        </div>
-      </CardContent>
-    </Card>
-  );
-}
-import { Card, CardContent } from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
-import { Badge } from "@/components/ui/badge";
-import { ShoppingCart, Star } from "lucide-react";
-import { useAuth } from "@/hooks/useAuth";
-
-interface ProductCardProps {
-  product: {
-    id: string;
-    name: string;
-    description: string;
-    price: string;
-    imageUrl: string;
-    category: string;
-    stock?: number;
-  };
-}
-
-export function ProductCard({ product }: ProductCardProps) {
-  const { isAuthenticated } = useAuth();
-
-  const handleAddToCart = async () => {
-    if (!isAuthenticated) {
-      window.location.href = "/login";
-      return;
-    }
-
-    try {
-      const response = await fetch("/api/cart", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          productId: product.id,
-          quantity: 1,
-        }),
-      });
-
-      if (response.ok) {
-        // Could add a toast notification here
-        console.log("Added to cart successfully");
-      }
-    } catch (error) {
-      console.error("Error adding to cart:", error);
-    }
-  };
-
-  const isOutOfStock = product.stock === 0;
-
-  return (
-    <Card className="group overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300 transform hover:-translate-y-2">
-      <div className="relative">
-        <img 
-          src={product.imageUrl} 
-          alt={product.name} 
-          className="w-full h-64 object-cover group-hover:scale-105 transition-transform duration-500"
-        />
-        {isOutOfStock && (
-          <div className="absolute inset-0 bg-black/50 flex items-center justify-center">
-            <Badge variant="destructive">Out of Stock</Badge>
-          </div>
-        )}
-      </div>
-      <CardContent className="p-6">
-        <div className="flex items-center justify-between mb-2">
-          <Badge variant="secondary" className="bg-accent/10 text-accent">
-            {product.category}
-          </Badge>
-          <div className="flex text-yellow-400">
-            {[...Array(5)].map((_, i) => (
-              <Star key={i} className="w-3 h-3 fill-current" />
-            ))}
-          </div>
-        </div>
-        <h3 className="font-semibold text-lg mb-2 cursor-pointer hover:text-primary transition-colors"
-            onClick={() => window.location.href = `/products/${product.id}`}>
-          {product.name}
-        </h3>
-        <p className="text-muted-foreground text-sm mb-4 line-clamp-2">
-          {product.description}
-        </p>
-        <div className="flex items-center justify-between">
-          <span className="text-2xl font-bold text-primary">
-            ${product.price}
-          </span>
-          <Button 
-            size="sm" 
-            className="bg-primary text-primary-foreground hover:bg-primary/90"
-            onClick={handleAddToCart}
-            disabled={isOutOfStock}
-          >
-            <ShoppingCart className="w-4 h-4" />
           </Button>
         </div>
       </CardContent>
