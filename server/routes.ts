@@ -12,6 +12,13 @@ import {
 } from "@shared/schema";
 import { z } from "zod";
 
+// Extend session interface to include userId
+declare module 'express-session' {
+  interface SessionData {
+    userId: string;
+  }
+}
+
 if (!process.env.STRIPE_SECRET_KEY) {
   throw new Error('Missing required Stripe secret: STRIPE_SECRET_KEY');
 }
@@ -85,6 +92,9 @@ export async function registerRoutes(app: Express): Promise<Server> {
       }
 
       // Check password
+      if (!user.password) {
+        return res.status(401).json({ message: 'Invalid credentials' });
+      }
       const isValid = await bcrypt.compare(password, user.password);
       if (!isValid) {
         return res.status(401).json({ message: 'Invalid credentials' });
