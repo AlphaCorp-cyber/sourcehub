@@ -17,6 +17,7 @@ import AdminDashboard from "@/pages/admin/dashboard";
 import AdminProducts from "@/pages/admin/products";
 import AdminOrders from "@/pages/admin/orders";
 import AdminRequests from "@/pages/admin/requests";
+import AdminRedirect from "@/components/admin-redirect";
 
 function Router() {
   const { isAuthenticated, isLoading } = useAuth();
@@ -41,6 +42,7 @@ function Router() {
           <Route path="/cart" component={Cart} />
           <Route path="/checkout" component={Checkout} />
           <Route path="/orders" component={OrderHistory} />
+          <Route path="/admin" component={AdminRedirect} />
           <Route path="/admin/dashboard" component={AdminDashboard} />
           <Route path="/admin/products" component={AdminProducts} />
           <Route path="/admin/orders" component={AdminOrders} />
