@@ -1,0 +1,98 @@
+Got it ✅ — you basically want a **lean eCommerce / sourcing platform** where:
+
+* Admin can add products (with images, description, price, etc.).
+* Customers can browse products and buy directly.
+* Customers can also **request a product** (custom order) → admin responds with feedback & pricing.
+* Payments go through **Stripe**.
+* Has a **modern landing page** + **customer sign-in/sign-up**.
+* UX should stay **simple and intuitive** (not bloated like typical big eCommerce).
+
+Here’s how I’d recommend structuring it:
+
+---
+
+### 🔹 System Features
+
+**1. Landing Page (Frontend)**
+
+* Hero section (clear “Shop from China, hassle-free”).
+* Showcase of featured products.
+* How it works (Buy, Request, Get Delivered).
+* Testimonials (optional).
+* Call to action → "Shop Now" / "Request Product".
+
+**2. Customer Module**
+
+* Sign up / Login (Google or email).
+* Browse products added by admin.
+* Add to cart & checkout with Stripe.
+* “Request Product” form → enter link, description, budget → admin responds.
+* Order history & status tracking.
+
+**3. Admin Module**
+
+* Login to dashboard.
+* Add/edit/delete products.
+* Manage customer product requests → reply with quote (auto-email notification to user).
+* View orders & mark statuses (e.g., Pending, Paid, Shipped).
+
+**4. Payment & Notifications**
+
+* Stripe integration for checkout.
+* Email/SMS notifications on order status.
+* Admin notification when a new request is submitted.
+
+---
+
+### 🔹 Tech Stack (Simple but Scalable)
+
+* **Frontend:** Next.js (React) + TailwindCSS → fast & modern UI.
+* **Backend:** Node.js (Express or NestJS) OR Laravel (if you prefer PHP).
+* **Database:** PostgreSQL / MySQL (or Firebase if you want simplicity).
+* **Authentication:** JWT / Firebase Auth / NextAuth (for simplicity).
+* **Payments:** Stripe Checkout.
+* **Hosting:**
+
+  * Vercel (for frontend).
+  * Render / Railway / DigitalOcean (for backend + DB).
+
+---
+
+### 🔹 Development Roadmap (Minimal Viable Product)
+
+1. **Landing Page + Auth**
+
+   * Build clean homepage.
+   * Implement customer sign up / login.
+
+2. **Product Catalog**
+
+   * Admin adds products.
+   * Customers can view & search products.
+
+3. **Cart & Checkout**
+
+   * Add to cart.
+   * Stripe checkout (with success & cancel pages).
+
+4. **Product Request Flow**
+
+   * Request form for customer.
+   * Admin responds (stored in system + email sent).
+
+5. **Admin Dashboard**
+
+   * Manage products, orders, requests.
+
+---
+
+### 🔹 UI/UX Style
+
+* Minimalist design (like **Shopify storefronts**).
+* Use soft colors, rounded cards, lots of whitespace.
+* Keep checkout flow **1–2 steps max**.
+
+---
+
+👉 Question for you before I draft code / structure:
+Do you want me to **prepare a full starter project** (e.g., Next.js + Stripe + simple admin), or do you want a **step-by-step guide** where you build it yourself piece by piece?
