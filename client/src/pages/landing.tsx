@@ -75,7 +75,7 @@ export default function Landing() {
       name: "Premium Backpack",
       description: "Luxury leather with laptop compartment",
       price: "$149.99",
-      imageUrl: "https://images.unsplash.com/photo-1553062407-98eeb64c6a62?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&h=300",
+      imageUrl: "https://images.unsplash.com/photo-15530629407-d8f925fe2cbb?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&h=300",
       category: "Fashion",
       rating: 5
     },
@@ -155,7 +155,7 @@ export default function Landing() {
                 </Button>
                 <Button 
                   variant="outline" 
-                  size="lg" 
+                  size="lg"
                   className="font-semibold text-lg"
                   data-testid="button-how-it-works"
                 >
@@ -296,7 +296,7 @@ export default function Landing() {
       </section>
 
       {/* Request Product Section */}
-      <section id="request" className="py-20 bg-gradient-to-br from-primary/5 to-accent/5" data-section="request">
+      <section id="request" className="py-20 bg-gradient-to-br from-primary/5 to-accent/5">
         <div className="container mx-auto px-4">
           <div className="grid lg:grid-cols-2 gap-12 items-center">
             <div className="space-y-8 animate-on-scroll">
@@ -410,7 +410,7 @@ export default function Landing() {
       </section>
 
       {/* How It Works */}
-      <section id="how-it-works" className="py-20" data-section="how-it-works">
+      <section id="how-it-works" className="py-20">
         <div className="container mx-auto px-4">
           <div className="text-center mb-16 animate-on-scroll">
             <h2 className="text-4xl font-bold mb-4" data-testid="text-how-it-works-title">How It Works</h2>
@@ -486,98 +486,6 @@ export default function Landing() {
         </div>
       </section>
 
-      {/* Admin Dashboard Preview */}
-      <section className="py-20 bg-muted/50">
-        <div className="container mx-auto px-4">
-          <div className="text-center mb-16 animate-on-scroll">
-            <h2 className="text-4xl font-bold mb-4" data-testid="text-admin-dashboard-title">Powerful Admin Dashboard</h2>
-            <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
-              Comprehensive tools for managing products, orders, and customer requests with ease.
-            </p>
-          </div>
-
-          <div className="grid lg:grid-cols-3 gap-8 mb-12">
-            <Card className="p-6 shadow-lg animate-on-scroll">
-              <CardContent className="p-0">
-                <div className="flex items-center space-x-3 mb-4">
-                  <div className="w-10 h-10 bg-blue-100 rounded-lg flex items-center justify-center">
-                    <Boxes className="w-5 h-5 text-blue-600" />
-                  </div>
-                  <h3 className="text-xl font-semibold">Product Management</h3>
-                </div>
-                <p className="text-muted-foreground mb-6">Add, edit, and manage your product catalog with drag-and-drop image uploads and rich descriptions.</p>
-                <div className="space-y-2">
-                  <div className="flex items-center text-sm">
-                    <Check className="w-4 h-4 text-green-500 mr-2" />
-                    Bulk product import
-                  </div>
-                  <div className="flex items-center text-sm">
-                    <Check className="w-4 h-4 text-green-500 mr-2" />
-                    Image optimization
-                  </div>
-                  <div className="flex items-center text-sm">
-                    <Check className="w-4 h-4 text-green-500 mr-2" />
-                    Inventory tracking
-                  </div>
-                </div>
-              </CardContent>
-            </Card>
-
-            <Card className="p-6 shadow-lg animate-on-scroll">
-              <CardContent className="p-0">
-                <div className="flex items-center space-x-3 mb-4">
-                  <div className="w-10 h-10 bg-green-100 rounded-lg flex items-center justify-center">
-                    <ChartLine className="w-5 h-5 text-green-600" />
-                  </div>
-                  <h3 className="text-xl font-semibold">Order Analytics</h3>
-                </div>
-                <p className="text-muted-foreground mb-6">Track sales, monitor performance, and gain insights with comprehensive analytics and reporting.</p>
-                <div className="space-y-2">
-                  <div className="flex items-center text-sm">
-                    <Check className="w-4 h-4 text-green-500 mr-2" />
-                    Real-time dashboards
-                  </div>
-                  <div className="flex items-center text-sm">
-                    <Check className="w-4 h-4 text-green-500 mr-2" />
-                    Revenue tracking
-                  </div>
-                  <div className="flex items-center text-sm">
-                    <Check className="w-4 h-4 text-green-500 mr-2" />
-                    Export reports
-                  </div>
-                </div>
-              </CardContent>
-            </Card>
-
-            <Card className="p-6 shadow-lg animate-on-scroll">
-              <CardContent className="p-0">
-                <div className="flex items-center space-x-3 mb-4">
-                  <div className="w-10 h-10 bg-purple-100 rounded-lg flex items-center justify-center">
-                    <MessageSquare className="w-5 h-5 text-purple-600" />
-                  </div>
-                  <h3 className="text-xl font-semibold">Request Management</h3>
-                </div>
-                <p className="text-muted-foreground mb-6">Handle customer product requests, provide quotes, and convert inquiries into sales seamlessly.</p>
-                <div className="space-y-2">
-                  <div className="flex items-center text-sm">
-                    <Check className="w-4 h-4 text-green-500 mr-2" />
-                    Automated notifications
-                  </div>
-                  <div className="flex items-center text-sm">
-                    <Check className="w-4 h-4 text-green-500 mr-2" />
-                    Quote generation
-                  </div>
-                  <div className="flex items-center text-sm">
-                    <Check className="w-4 h-4 text-green-500 mr-2" />
-                    Customer communication
-                  </div>
-                </div>
-              </CardContent>
-            </Card>
-          </div>
-        </div>
-      </section>
-
       {/* Testimonials */}
       <section className="py-20">
         <div className="container mx-auto px-4">
@@ -620,7 +528,7 @@ export default function Landing() {
       </section>
 
       {/* Support Section */}
-      <section id="support" className="py-20 bg-muted/50" data-section="support">
+      <section id="support" className="py-20 bg-muted/50">
         <div className="container mx-auto px-4">
           <div className="text-center mb-16 animate-on-scroll">
             <h2 className="text-4xl font-bold mb-4" data-testid="text-support-title">Need Help?</h2>

@@ -13,10 +13,6 @@ import ProductDetail from "@/pages/product-detail";
 import Cart from "@/pages/cart";
 import Checkout from "@/pages/checkout";
 import OrderHistory from "@/pages/order-history";
-import AdminDashboard from "@/pages/admin/dashboard";
-import AdminProducts from "@/pages/admin/products";
-import AdminOrders from "@/pages/admin/orders";
-import AdminRequests from "@/pages/admin/requests";
 
 function Router() {
   const { isAuthenticated, isLoading } = useAuth();
@@ -24,7 +20,7 @@ function Router() {
   return (
     <Switch>
       <Route path="/login" component={Login} />
-      
+
       {isLoading ? (
         <Route path="/" component={Landing} />
       ) : !isAuthenticated ? (
@@ -40,11 +36,7 @@ function Router() {
           <Route path="/products/:id" component={ProductDetail} />
           <Route path="/cart" component={Cart} />
           <Route path="/checkout" component={Checkout} />
-          <Route path="/orders" component={OrderHistory} />
-          <Route path="/admin" component={AdminDashboard} />
-          <Route path="/admin/products" component={AdminProducts} />
-          <Route path="/admin/orders" component={AdminOrders} />
-          <Route path="/admin/requests" component={AdminRequests} />
+          <Route path="/orders" element={<OrderHistory />} />
         </>
       )}
       <Route component={NotFound} />

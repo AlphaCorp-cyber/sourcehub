@@ -184,15 +184,6 @@ export function Navbar() {
                   <User className="mr-2 h-4 w-4" />
                   <span>Profile</span>
                 </DropdownMenuItem>
-                {user?.isAdmin && (
-                  <DropdownMenuItem 
-                    onClick={() => window.location.href = "/admin"}
-                    data-testid="menu-item-admin"
-                  >
-                    <Settings className="mr-2 h-4 w-4" />
-                    <span>Admin Dashboard</span>
-                  </DropdownMenuItem>
-                )}
                 <DropdownMenuSeparator />
                 <DropdownMenuItem 
                   onClick={handleSignOut}
