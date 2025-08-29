@@ -16,9 +16,12 @@ export default function Products() {
   const [selectedCategory, setSelectedCategory] = useState("all");
   const [sortBy, setSortBy] = useState("newest");
 
-  const { data: products, isLoading } = useQuery<Product[]>({
+  const { data: products, isLoading, error } = useQuery<Product[]>({
     queryKey: ["/api/products"],
+    retry: 3,
   });
+
+  console.log('Products data:', products, 'Loading:', isLoading, 'Error:', error);
 
   // Filter and sort products
   const filteredProducts = products?.filter(product => {

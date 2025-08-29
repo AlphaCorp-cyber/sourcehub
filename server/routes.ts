@@ -26,7 +26,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
     secret: process.env.SESSION_SECRET || 'your-secret-key',
     resave: false,
     saveUninitialized: false,
-    cookie: { 
+    cookie: {
       secure: false, // Set to true in production with HTTPS
       maxAge: 24 * 60 * 60 * 1000 // 24 hours
     }
@@ -45,7 +45,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
   app.post('/api/auth/register', async (req, res) => {
     try {
       const { email, password, firstName, lastName } = req.body;
-      
+
       // Check if user already exists
       const existingUser = await storage.getUserByEmail(email);
       if (existingUser) {
@@ -54,7 +54,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
 
       // Hash password
       const hashedPassword = await bcrypt.hash(password, 10);
-      
+
       // Create user
       const user = await storage.createUser({
         email,
@@ -66,7 +66,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
 
       // Set session
       req.session.userId = user.id;
-      
+
       res.json({ message: 'User created successfully' });
     } catch (error) {
       console.error('Registration error:', error);
@@ -77,7 +77,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
   app.post('/api/auth/login', async (req, res) => {
     try {
       const { email, password } = req.body;
-      
+
       // Find user
       const user = await storage.getUserByEmail(email);
       if (!user) {
@@ -92,7 +92,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
 
       // Set session
       req.session.userId = user.id;
-      
+
       res.json({ message: 'Login successful' });
     } catch (error) {
       console.error('Login error:', error);
@@ -109,18 +109,18 @@ export async function registerRoutes(app: Express): Promise<Server> {
   // Auth middleware
   await setupAuth(app);
 
-  // Auth routes  
+  // Auth routes
   app.get('/api/auth/user', async (req: any, res) => {
     try {
       if (!req.session?.userId) {
         return res.status(401).json({ message: 'Not authenticated' });
       }
-      
+
       const user = await storage.getUser(req.session.userId);
       if (!user) {
         return res.status(404).json({ message: 'User not found' });
       }
-      
+
       // Don't send password hash
       const { password, ...userWithoutPassword } = user;
       res.json(userWithoutPassword);
@@ -373,7 +373,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
   app.post("/api/create-payment-intent", isAuthenticated, async (req: any, res) => {
     try {
       const { cartItems } = req.body;
-      
+
       // Calculate total from cart items
       const total = cartItems.reduce((sum: number, item: any) => {
         return sum + (parseFloat(item.product.price) * item.quantity);
