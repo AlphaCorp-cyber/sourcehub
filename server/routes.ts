@@ -4,7 +4,6 @@ import Stripe from "stripe";
 import bcrypt from "bcrypt";
 import session from "express-session";
 import { storage } from "./storage";
-import { setupAuth, isAuthenticated } from "./replitAuth";
 import {
   insertProductSchema,
   insertProductRequestSchema,
@@ -28,7 +27,7 @@ const stripe = new Stripe(process.env.STRIPE_SECRET_KEY, {
 });
 
 export async function registerRoutes(app: Express): Promise<Server> {
-  // Session middleware
+  // Session middleware  
   app.use(session({
     secret: process.env.SESSION_SECRET || 'your-secret-key',
     resave: false,
@@ -116,8 +115,6 @@ export async function registerRoutes(app: Express): Promise<Server> {
     });
   });
 
-  // Auth middleware
-  await setupAuth(app);
 
   // Auth routes
   app.get('/api/auth/user', async (req: any, res) => {
@@ -165,9 +162,9 @@ export async function registerRoutes(app: Express): Promise<Server> {
   });
 
   // Admin product routes
-  app.post('/api/admin/products', isAuthenticated, async (req: any, res) => {
+  app.post('/api/admin/products', requireAuth, async (req: any, res) => {
     try {
-      const user = await storage.getUser(req.user.claims.sub);
+      const user = await storage.getUser(req.session.userId);
       if (!user?.isAdmin) {
         return res.status(403).json({ message: "Admin access required" });
       }
@@ -184,9 +181,9 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
-  app.put('/api/admin/products/:id', isAuthenticated, async (req: any, res) => {
+  app.put('/api/admin/products/:id', requireAuth, async (req: any, res) => {
     try {
-      const user = await storage.getUser(req.user.claims.sub);
+      const user = await storage.getUser(req.session.userId);
       if (!user?.isAdmin) {
         return res.status(403).json({ message: "Admin access required" });
       }
@@ -200,9 +197,9 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
-  app.delete('/api/admin/products/:id', isAuthenticated, async (req: any, res) => {
+  app.delete('/api/admin/products/:id', requireAuth, async (req: any, res) => {
     try {
-      const user = await storage.getUser(req.user.claims.sub);
+      const user = await storage.getUser(req.session.userId);
       if (!user?.isAdmin) {
         return res.status(403).json({ message: "Admin access required" });
       }
@@ -216,11 +213,11 @@ export async function registerRoutes(app: Express): Promise<Server> {
   });
 
   // Product request routes
-  app.post('/api/product-requests', isAuthenticated, async (req: any, res) => {
+  app.post('/api/product-requests', requireAuth, async (req: any, res) => {
     try {
       const validatedData = insertProductRequestSchema.parse({
         ...req.body,
-        userId: req.user.claims.sub,
+        userId: req.session.userId,
       });
       const request = await storage.createProductRequest(validatedData);
       res.json(request);
@@ -233,9 +230,9 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
-  app.get('/api/product-requests', isAuthenticated, async (req: any, res) => {
+  app.get('/api/product-requests', requireAuth, async (req: any, res) => {
     try {
-      const requests = await storage.getProductRequestsByUser(req.user.claims.sub);
+      const requests = await storage.getProductRequestsByUser(req.session.userId);
       res.json(requests);
     } catch (error) {
       console.error("Error fetching product requests:", error);
@@ -244,9 +241,9 @@ export async function registerRoutes(app: Express): Promise<Server> {
   });
 
   // Admin product request routes
-  app.get('/api/admin/product-requests', isAuthenticated, async (req: any, res) => {
+  app.get('/api/admin/product-requests', requireAuth, async (req: any, res) => {
     try {
-      const user = await storage.getUser(req.user.claims.sub);
+      const user = await storage.getUser(req.session.userId);
       if (!user?.isAdmin) {
         return res.status(403).json({ message: "Admin access required" });
       }
@@ -259,9 +256,9 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
-  app.put('/api/admin/product-requests/:id', isAuthenticated, async (req: any, res) => {
+  app.put('/api/admin/product-requests/:id', requireAuth, async (req: any, res) => {
     try {
-      const user = await storage.getUser(req.user.claims.sub);
+      const user = await storage.getUser(req.session.userId);
       if (!user?.isAdmin) {
         return res.status(403).json({ message: "Admin access required" });
       }
@@ -275,9 +272,9 @@ export async function registerRoutes(app: Express): Promise<Server> {
   });
 
   // Cart routes
-  app.get('/api/cart', isAuthenticated, async (req: any, res) => {
+  app.get('/api/cart', requireAuth, async (req: any, res) => {
     try {
-      const cartItems = await storage.getCartItems(req.user.claims.sub);
+      const cartItems = await storage.getCartItems(req.session.userId);
       res.json(cartItems);
     } catch (error) {
       console.error("Error fetching cart:", error);
@@ -285,11 +282,11 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
-  app.post('/api/cart', isAuthenticated, async (req: any, res) => {
+  app.post('/api/cart', requireAuth, async (req: any, res) => {
     try {
       const validatedData = insertCartItemSchema.parse({
         ...req.body,
-        userId: req.user.claims.sub,
+        userId: req.session.userId,
       });
       const cartItem = await storage.addToCart(validatedData);
       res.json(cartItem);
@@ -302,7 +299,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
-  app.put('/api/cart/:id', isAuthenticated, async (req, res) => {
+  app.put('/api/cart/:id', requireAuth, async (req, res) => {
     try {
       const { quantity } = req.body;
       const cartItem = await storage.updateCartItem(req.params.id, quantity);
@@ -313,7 +310,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
-  app.delete('/api/cart/:id', isAuthenticated, async (req, res) => {
+  app.delete('/api/cart/:id', requireAuth, async (req, res) => {
     try {
       await storage.removeFromCart(req.params.id);
       res.json({ message: "Item removed from cart" });
@@ -324,9 +321,9 @@ export async function registerRoutes(app: Express): Promise<Server> {
   });
 
   // Order routes
-  app.get('/api/orders', isAuthenticated, async (req: any, res) => {
+  app.get('/api/orders', requireAuth, async (req: any, res) => {
     try {
-      const orders = await storage.getOrdersByUser(req.user.claims.sub);
+      const orders = await storage.getOrdersByUser(req.session.userId);
       res.json(orders);
     } catch (error) {
       console.error("Error fetching orders:", error);
@@ -334,7 +331,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
-  app.get('/api/orders/:id', isAuthenticated, async (req: any, res) => {
+  app.get('/api/orders/:id', requireAuth, async (req: any, res) => {
     try {
       const order = await storage.getOrderWithItems(req.params.id);
       if (!order) {
@@ -348,9 +345,9 @@ export async function registerRoutes(app: Express): Promise<Server> {
   });
 
   // Admin order routes
-  app.get('/api/admin/orders', isAuthenticated, async (req: any, res) => {
+  app.get('/api/admin/orders', requireAuth, async (req: any, res) => {
     try {
-      const user = await storage.getUser(req.user.claims.sub);
+      const user = await storage.getUser(req.session.userId);
       if (!user?.isAdmin) {
         return res.status(403).json({ message: "Admin access required" });
       }
@@ -363,9 +360,9 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
-  app.put('/api/admin/orders/:id/status', isAuthenticated, async (req: any, res) => {
+  app.put('/api/admin/orders/:id/status', requireAuth, async (req: any, res) => {
     try {
-      const user = await storage.getUser(req.user.claims.sub);
+      const user = await storage.getUser(req.session.userId);
       if (!user?.isAdmin) {
         return res.status(403).json({ message: "Admin access required" });
       }
@@ -380,7 +377,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
   });
 
   // Stripe payment route
-  app.post("/api/create-payment-intent", isAuthenticated, async (req: any, res) => {
+  app.post("/api/create-payment-intent", requireAuth, async (req: any, res) => {
     try {
       const { cartItems } = req.body;
 
@@ -393,7 +390,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
         amount: Math.round(total * 100), // Convert to cents
         currency: "usd",
         metadata: {
-          userId: req.user.claims.sub,
+          userId: req.session.userId,
         },
       });
 
@@ -405,10 +402,10 @@ export async function registerRoutes(app: Express): Promise<Server> {
   });
 
   // Create order after successful payment
-  app.post("/api/create-order", isAuthenticated, async (req: any, res) => {
+  app.post("/api/create-order", requireAuth, async (req: any, res) => {
     try {
       const { paymentIntentId, shippingAddress } = req.body;
-      const userId = req.user.claims.sub;
+      const userId = req.session.userId;
 
       // Get cart items
       const cartItems = await storage.getCartItems(userId);
