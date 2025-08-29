@@ -147,7 +147,7 @@ export default function Landing() {
                 <Button 
                   size="lg" 
                   className="bg-primary text-primary-foreground hover:bg-primary/90 transition-all transform hover:scale-105 font-semibold text-lg shadow-lg"
-                  onClick={() => window.location.href = "/api/login"}
+                  onClick={() => window.location.href = "/login"}
                   data-testid="button-shop-now"
                 >
                   <ShoppingCart className="w-5 h-5 mr-2" />
@@ -296,7 +296,7 @@ export default function Landing() {
       </section>
 
       {/* Request Product Section */}
-      <section className="py-20 bg-gradient-to-br from-primary/5 to-accent/5">
+      <section className="py-20 bg-gradient-to-br from-primary/5 to-accent/5" data-section="request">
         <div className="container mx-auto px-4">
           <div className="grid lg:grid-cols-2 gap-12 items-center">
             <div className="space-y-8 animate-on-scroll">
@@ -410,7 +410,7 @@ export default function Landing() {
       </section>
 
       {/* How It Works */}
-      <section className="py-20">
+      <section className="py-20" data-section="how-it-works">
         <div className="container mx-auto px-4">
           <div className="text-center mb-16 animate-on-scroll">
             <h2 className="text-4xl font-bold mb-4" data-testid="text-how-it-works-title">How It Works</h2>
@@ -619,6 +619,59 @@ export default function Landing() {
         </div>
       </section>
 
+      {/* Support Section */}
+      <section className="py-20 bg-muted/50" data-section="support">
+        <div className="container mx-auto px-4">
+          <div className="text-center mb-16 animate-on-scroll">
+            <h2 className="text-4xl font-bold mb-4" data-testid="text-support-title">Need Help?</h2>
+            <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
+              Our dedicated support team is here to help you with any questions or concerns.
+            </p>
+          </div>
+
+          <div className="grid md:grid-cols-3 gap-8 mb-12">
+            <Card className="p-6 shadow-lg animate-on-scroll">
+              <CardContent className="p-0 text-center">
+                <div className="w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center mx-auto mb-4">
+                  <MessageSquare className="w-6 h-6 text-blue-600" />
+                </div>
+                <h3 className="text-xl font-semibold mb-2">Live Chat</h3>
+                <p className="text-muted-foreground mb-4">
+                  Get instant help from our support team via live chat.
+                </p>
+                <Button variant="outline">Start Chat</Button>
+              </CardContent>
+            </Card>
+
+            <Card className="p-6 shadow-lg animate-on-scroll">
+              <CardContent className="p-0 text-center">
+                <div className="w-12 h-12 bg-green-100 rounded-lg flex items-center justify-center mx-auto mb-4">
+                  <Phone className="w-6 h-6 text-green-600" />
+                </div>
+                <h3 className="text-xl font-semibold mb-2">Phone Support</h3>
+                <p className="text-muted-foreground mb-4">
+                  Call us for immediate assistance with your orders.
+                </p>
+                <Button variant="outline">Call Now</Button>
+              </CardContent>
+            </Card>
+
+            <Card className="p-6 shadow-lg animate-on-scroll">
+              <CardContent className="p-0 text-center">
+                <div className="w-12 h-12 bg-purple-100 rounded-lg flex items-center justify-center mx-auto mb-4">
+                  <NotebookPen className="w-6 h-6 text-purple-600" />
+                </div>
+                <h3 className="text-xl font-semibold mb-2">Help Center</h3>
+                <p className="text-muted-foreground mb-4">
+                  Browse our comprehensive FAQ and guides.
+                </p>
+                <Button variant="outline">Visit Help Center</Button>
+              </CardContent>
+            </Card>
+          </div>
+        </div>
+      </section>
+
       {/* CTA Section */}
       <section className="py-20 bg-gradient-to-br from-primary to-accent">
         <div className="container mx-auto px-4 text-center">
@@ -633,7 +686,7 @@ export default function Landing() {
               <Button 
                 size="lg" 
                 className="bg-white text-primary hover:bg-white/90 font-semibold shadow-lg"
-                onClick={() => window.location.href = "/api/login"}
+                onClick={() => window.location.href = "/login"}
                 data-testid="button-create-account"
               >
                 <UserPlus className="w-5 h-5 mr-2" />

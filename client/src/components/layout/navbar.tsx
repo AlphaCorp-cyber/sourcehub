@@ -34,12 +34,18 @@ export function Navbar() {
 
   const cartItemCount = cartItems?.length || 0;
 
-  const handleSignOut = () => {
-    window.location.href = "/api/logout";
+  const handleSignOut = async () => {
+    try {
+      await fetch("/api/auth/logout", { method: "POST" });
+      window.location.href = "/";
+    } catch (error) {
+      console.error("Logout error:", error);
+      window.location.href = "/";
+    }
   };
 
   const handleSignIn = () => {
-    window.location.href = "/api/login";
+    window.location.href = "/login";
   };
 
   return (
@@ -68,27 +74,48 @@ export function Navbar() {
           >
             Products
           </a>
-          <a 
-            href="/#request" 
+          <button 
+            onClick={() => {
+              const requestSection = document.querySelector('[data-section="request"]');
+              if (requestSection) {
+                requestSection.scrollIntoView({ behavior: 'smooth' });
+              } else {
+                window.location.href = "/#request";
+              }
+            }}
             className="text-muted-foreground hover:text-foreground transition-colors"
             data-testid="link-request"
           >
             Request
-          </a>
-          <a 
-            href="/#how-it-works" 
+          </button>
+          <button 
+            onClick={() => {
+              const howItWorksSection = document.querySelector('[data-section="how-it-works"]');
+              if (howItWorksSection) {
+                howItWorksSection.scrollIntoView({ behavior: 'smooth' });
+              } else {
+                window.location.href = "/#how-it-works";
+              }
+            }}
             className="text-muted-foreground hover:text-foreground transition-colors"
             data-testid="link-how-it-works"
           >
             How it Works
-          </a>
-          <a 
-            href="/#support" 
+          </button>
+          <button 
+            onClick={() => {
+              const supportSection = document.querySelector('[data-section="support"]');
+              if (supportSection) {
+                supportSection.scrollIntoView({ behavior: 'smooth' });
+              } else {
+                window.location.href = "/#support";
+              }
+            }}
             className="text-muted-foreground hover:text-foreground transition-colors"
             data-testid="link-support"
           >
             Support
-          </a>
+          </button>
         </div>
 
         {/* Right Side Actions */}
@@ -219,30 +246,51 @@ export function Navbar() {
             >
               Products
             </a>
-            <a 
-              href="/#request" 
-              className="block px-3 py-2 text-muted-foreground hover:text-foreground transition-colors"
-              onClick={() => setIsMobileMenuOpen(false)}
+            <button 
+              onClick={() => {
+                const requestSection = document.querySelector('[data-section="request"]');
+                if (requestSection) {
+                  requestSection.scrollIntoView({ behavior: 'smooth' });
+                } else {
+                  window.location.href = "/#request";
+                }
+                setIsMobileMenuOpen(false);
+              }}
+              className="block w-full text-left px-3 py-2 text-muted-foreground hover:text-foreground transition-colors"
               data-testid="mobile-link-request"
             >
               Request
-            </a>
-            <a 
-              href="/#how-it-works" 
-              className="block px-3 py-2 text-muted-foreground hover:text-foreground transition-colors"
-              onClick={() => setIsMobileMenuOpen(false)}
+            </button>
+            <button 
+              onClick={() => {
+                const howItWorksSection = document.querySelector('[data-section="how-it-works"]');
+                if (howItWorksSection) {
+                  howItWorksSection.scrollIntoView({ behavior: 'smooth' });
+                } else {
+                  window.location.href = "/#how-it-works";
+                }
+                setIsMobileMenuOpen(false);
+              }}
+              className="block w-full text-left px-3 py-2 text-muted-foreground hover:text-foreground transition-colors"
               data-testid="mobile-link-how-it-works"
             >
               How it Works
-            </a>
-            <a 
-              href="/#support" 
-              className="block px-3 py-2 text-muted-foreground hover:text-foreground transition-colors"
-              onClick={() => setIsMobileMenuOpen(false)}
+            </button>
+            <button 
+              onClick={() => {
+                const supportSection = document.querySelector('[data-section="support"]');
+                if (supportSection) {
+                  supportSection.scrollIntoView({ behavior: 'smooth' });
+                } else {
+                  window.location.href = "/#support";
+                }
+                setIsMobileMenuOpen(false);
+              }}
+              className="block w-full text-left px-3 py-2 text-muted-foreground hover:text-foreground transition-colors"
               data-testid="mobile-link-support"
             >
               Support
-            </a>
+            </button>
           </div>
         </div>
       )}
